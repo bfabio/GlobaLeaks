@@ -76,8 +76,8 @@ def logFormatter(timestamp, request):
     client_ua = '[REMOVED_USER_AGENT]'
 
     if request.log_ip_and_ua:
-        client_ip = request.client_ip
-        client_ua = request.client_ua
+        client_ip = request.client_ip if request.client_ip else '[MISSING_IP_ADDRESS]'
+        client_ua = request.client_ua if request.client_ua else '[MISSING_USER_AGENT]'
 
     return (u'%(vhost)s %(ip)s - - %(timestamp)s "%(method)s %(uri)s %(clientproto)s" %(code)s %(length)d %(duration)dms - "%(user_agent)s" %(tid)d' % dict(
             vhost=_escape(request.hostname),
