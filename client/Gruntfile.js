@@ -754,7 +754,7 @@ module.exports = function(grunt) {
     console.log("Written " + Object.keys(data["translations"][""]).length + " string to pot/en.po.");
   });
 
-  grunt.registerTask("☠☠☠pushTranslationsSource☠☠☠", function() {
+  grunt.registerTask("pushTranslationsSource", function() {
     updateTxSource(this.async());
   });
 
@@ -1002,19 +1002,15 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask("includeExternalFiles", function() {
-    fs.writeFileSync("tmp/LICENSE", grunt.file.read("../LICENSE"));
-  });
-
   // Run this task to push translations on transifex
-  grunt.registerTask("pushTranslationsSource", ["confirm", "☠☠☠pushTranslationsSource☠☠☠"]);
+  grunt.registerTask("pushTranslationsSource", ["confirm", "pushTranslationsSource"]);
 
   // Run this task to fetch translations from transifex and create application files
   grunt.registerTask("updateTranslations", ["fetchTranslations", "makeAppData", "verifyAppData"]);
 
   // Run this to build your app. You should have run updateTranslations before you do so, if you have changed something in your translations.
   grunt.registerTask("build",
-    ["clean", "copy:sources", "copy:build", "includeExternalFiles", "ngtemplates", "postcss", "useminPrepare", "concat", "usemin", "string-replace", "copy:package", "cssmin", "uglify", "compress"]);
+    ["clean", "copy:sources", "copy:build", "ngtemplates", "postcss", "useminPrepare", "concat", "usemin", "string-replace", "copy:package", "cssmin", "uglify", "compress"]);
 
   grunt.registerTask("instrument-client", [
     "clean",
